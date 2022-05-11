@@ -53,6 +53,16 @@ const Task: NextPage = () => {
                     setTasks(res.data);
                 })
                 .catch((err) => console.log(err));
+            server
+                .get(`/user/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((res: { data: ITokenInfo }) => {
+                    setUserData(res.data);
+                })
+                .catch((err) => console.log(err));
         }
     };
 
