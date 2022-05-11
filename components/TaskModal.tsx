@@ -75,7 +75,7 @@ export default function TaskModal({ tasks , user, setTaskModal, updateTasks}: IT
         return data;
     };
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setLoading(true);
         const token = localStorage.getItem('token');
@@ -93,14 +93,15 @@ export default function TaskModal({ tasks , user, setTaskModal, updateTasks}: IT
             .then(() => {
                 enableAlert(setAlert,{message:"Tarefa criada com sucesso!", type:"success"} );
                 setTaskModal(false);
+                setLoading(false)
                 updateTasks()
             })
             .catch((err) => {
                 console.log(err)
+                setLoading(false)
                 enableAlert(setAlert,{message:"Erro ao criar tarefa!", type:"error"} );
             });
         console.log(getFullTimeFromMoment(date, startTime));
-        setLoading(false);
     };
 
     return (
