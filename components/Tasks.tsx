@@ -12,7 +12,7 @@ import SquareRoundedIcon from '@mui/icons-material/SquareRounded';
 import { Button, Grid, Modal } from '@mui/material';
 import TaskModal from './TaskModal';
 import { ITask } from '../interfaces/task.interface';
-import { server } from '../service/service';
+import { server } from '../pages/api/service';
 import { ITokenInfo } from '../interfaces/tokenInfo.interface';
 
 function preventDefault(event: React.MouseEvent) {

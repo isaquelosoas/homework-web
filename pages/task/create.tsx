@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { isAuthorized, server } from '../../service/service';
+import { isAuthorized, server } from '../api/service';
 import { ITokenInfo } from '../../interfaces/tokenInfo.interface';
 import Dashboard from '../../components/Dashboard';
 import Grid from '@mui/material/Grid';

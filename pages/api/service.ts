@@ -1,11 +1,8 @@
 import axios from 'axios';
 import Router from 'next/router';
 
-const SERVER_URL = process.env.SERVER_URL || 'http://localhost:3000';
-console.log(SERVER_URL);
-
 const server = axios.create({
-    baseURL: SERVER_URL,
+    baseURL: 'https://homeworkbe.herokuapp.com/',
     headers: {
         'Content-Type': 'application/json'
     }

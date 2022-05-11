@@ -11,7 +11,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { Moment } from 'moment';
 import { getFullTimeFromMoment } from '../helpers/date.helper';
 import { ITokenInfo } from '../interfaces/tokenInfo.interface';
-import { server } from '../service/service';
+import { server } from '../pages/api/service';
 import AppAlert from './Alert';
 import { AlertProps, IAlert } from '../interfaces/alert.interface';
 import { enableAlert } from '../helpers/alert.helper';
