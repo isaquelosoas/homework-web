@@ -17,14 +17,13 @@ import {
 } from '@mui/material';
 import { ICategory } from '../../interfaces/category.interface';
 import { Box } from '@mui/system';
-import { AlertProps, IAlert } from '../../interfaces/alert.interface';
+import {  IAlert } from '../../interfaces/alert.interface';
 import AppAlert from '../../components/Alert';
 import { disableAlert, enableAlert } from '../../helpers/alert.helper';
 
 
 
 const Task: NextPage = () => {
-    const [userData, setUserData] = useState<ITokenInfo>();
     const [categories, setCategories] = useState<ICategory[] | []>([]);
     const [category, setCategory] = useState<string | ''>('');
     const [loading, setLoading] = useState(false);
@@ -34,7 +33,6 @@ const Task: NextPage = () => {
         const checkAuthorization = async () => {
             const response = await isAuthorized();
             if (response) {
-                setUserData(response);
                 const token = window.localStorage.getItem('token');
                 await server
                     .get('/category', {
@@ -98,8 +96,7 @@ const Task: NextPage = () => {
 
     return (
         <>
-            {userData && (
-                <Dashboard userData={userData}>
+                <Dashboard >
                     <Typography variant="h6" gutterBottom>
                         Criar Tarefa
                     </Typography>
@@ -120,9 +117,9 @@ const Task: NextPage = () => {
                                         label="Categoria"
                                         onChange={handleCategoryChange}
                                     >
-                                        {categories.map((category: ICategory) => (
-                                            <MenuItem key={category.id} value={category.id}>
-                                                {category.name}
+                                        {categories.map((cat: ICategory) => (
+                                            <MenuItem key={cat.id} value={cat.id}>
+                                                {cat.name}
                                             </MenuItem>
                                         ))}
                                     </Select>
@@ -146,7 +143,7 @@ const Task: NextPage = () => {
                         </Grid>
                     </Box>
                 </Dashboard>
-            )}
+            
         </>
     );
 };
