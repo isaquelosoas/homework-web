@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Router from 'next/router';
+import { getTokenInfo } from '../../helpers/token.helper';
 
 const server = axios.create({
     baseURL: 'https://homeworkbe.herokuapp.com/',
@@ -9,16 +10,7 @@ const server = axios.create({
 });
 
 const isAuthorized = async () => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        Router.push('/');
-    }
-    try {
-        const res = await server.post('/auth/verify', {}, { headers: { Authorization: `Bearer ${token}` } });
-        return res.data;
-    } catch (error) {
-        Router.push('/');
-    }
+    return getTokenInfo();
 };
 
 export { server, isAuthorized };

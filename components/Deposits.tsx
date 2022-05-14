@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Link from '@mui/material/Link';
+import Link from 'next/link';
 import Typography from '@mui/material/Typography';
 import Title from './Title';
 import { IUserTask } from '../interfaces/userTask.interface';
@@ -34,9 +34,7 @@ export default function Deposits({ tasks }: DepositsProps) {
                 {`até ${tasks.length > 0 ? new Date(getMaxDate).toLocaleDateString('pt-BR') : 'now'}`}
             </Typography>
             <div>
-                <Link color="primary" href="#" onClick={preventDefault}>
-                    View balance
-                </Link>
+                <Link href="/history">View balance</Link>
             </div>
         </React.Fragment>
     );

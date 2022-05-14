@@ -23,21 +23,11 @@ import { disableAlert, enableAlert } from '../../helpers/alert.helper';
 
 
 const CreateCategory: NextPage = () => {
-    const [userData, setUserData] = useState<ITokenInfo>();
     const [needsApproval, setNeedsApproval] = useState<boolean>(true);
     const [color, setColor] = useState<string | ''>('#4169E1');
     const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState<IAlert>();
-
-    useEffect(() => {
-        const checkAuthorization = async () => {
-            const response = await isAuthorized();
-            if (response) {
-                setUserData(response);
-            }
-        };
-        checkAuthorization();
-    }, []);
+    
 
     const handleChange = (event: SelectChangeEvent) => {
         const value = event.target.value==="false"?false:true;
@@ -85,8 +75,7 @@ const CreateCategory: NextPage = () => {
 
     return (
         <>
-            {userData && (
-                <Dashboard userData={userData}>
+                <Dashboard>
                     <Typography variant="h6" gutterBottom>
                         Criar Categoria
                     </Typography>
@@ -136,7 +125,7 @@ const CreateCategory: NextPage = () => {
                         </Grid>
                     </Box>
                 </Dashboard>
-            )}
+            
         </>
     );
 };

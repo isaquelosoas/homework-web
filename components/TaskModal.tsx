@@ -30,7 +30,7 @@ const style = {
 
 interface ITaskModalProps {
     tasks: ITask[];
-    user:ITokenInfo;
+    id:string;
     setTaskModal: (value: boolean) => void;
     updateTasks: () => void;
 }
@@ -42,7 +42,7 @@ interface ICreateTask {
     sharerId?: string;
     shareAmount?: number;
 }
-export default function TaskModal({ tasks , user, setTaskModal, updateTasks}: ITaskModalProps) {
+export default function TaskModal({ tasks , id, setTaskModal, updateTasks}: ITaskModalProps) {
     const [loading, setLoading] = useState(false);
     const [taskId, setTaskId] = useState<string>('');
     const [date, setDate] = useState<string>(moment().format('YYYY-MM-DD'));
@@ -68,7 +68,7 @@ export default function TaskModal({ tasks , user, setTaskModal, updateTasks}: IT
         data['startTime'] = getFullTimeFromMoment(date,startTime);
         data['endTime'] = getFullTimeFromMoment(date,endTime);
         data['shareAmount'] = 0;
-        if(taskId === "627b0233b401d5a9e0a3fc2a" && user.id === "626b221d2d3e83de13103c60"){
+        if(taskId === "627b0233b401d5a9e0a3fc2a" && id === "626b221d2d3e83de13103c60"){
             data['sharerId'] = "626b31cad1a1fb4bb49d38a3";
             data['shareAmount'] = 0.5;
         }
@@ -82,7 +82,7 @@ export default function TaskModal({ tasks , user, setTaskModal, updateTasks}: IT
 
         server
             .post(
-                `/user/${user.id}/task`,
+                `/user/${id}/task`,
                 makeCreateTaskData(),
                 {
                     headers: {

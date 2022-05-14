@@ -31,11 +31,11 @@ const getStatus = (pending: boolean, approved: boolean) => {
 
 interface ITasksProps {
     tasks: IUserTask[];
-    user: ITokenInfo;
+    id: string;
     updateTasks: () => void;
 }
 
-export default function Tasks({ tasks, user, updateTasks }: ITasksProps) {
+export default function Tasks({ tasks, id, updateTasks }: ITasksProps) {
     const [taskModal, setTaskModal] = useState<boolean>(false);
     const [taskList, setTaskList] = useState<ITask[]>([]);
 
@@ -60,7 +60,7 @@ export default function Tasks({ tasks, user, updateTasks }: ITasksProps) {
                     setTaskModal(false);
                 }}
             >
-                {<TaskModal tasks={taskList} user={user} setTaskModal={setTaskModal} updateTasks={updateTasks} />}
+                {<TaskModal tasks={taskList} id={id} setTaskModal={setTaskModal} updateTasks={updateTasks} />}
             </Modal>
             <Grid container spacing={3}>
                 <Grid item xs={10} md={10} lg={10}>
