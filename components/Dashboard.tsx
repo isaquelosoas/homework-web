@@ -22,11 +22,11 @@ import { LinearProgress, Modal } from '@mui/material';
 import WithdrawModal from './WithdrawModal';
 
 interface IDashboardProps {
-    updateUser: () => void;
     children: JSX.Element | JSX.Element[];
 }
 
 interface IDashboardContentProps extends IDashboardProps {
+    updateUser: () => void;
     userData: ITokenInfo;
 }
 function Copyright(props: any) {
