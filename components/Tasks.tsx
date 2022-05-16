@@ -52,6 +52,9 @@ export default function Tasks({ tasks, id, updateTasks }: ITasksProps) {
             })
             .catch((err) => console.log(err));
     }, []);
+    tasks.sort((a, b) => {
+        return new Date(b.startTime).getTime() - new Date(a.startTime).getTime();
+    });
     return (
         <Fragment>
             <Modal

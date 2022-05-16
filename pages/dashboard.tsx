@@ -54,6 +54,9 @@ const Task: NextPage = () => {
     };
 
     const createChartData: IChartData[] = tasks
+        .sort((a, b) => {
+            return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
+        })
         .map((task: IUserTask) => {
             return {
                 label: formatDate(task.startTime),
