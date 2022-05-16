@@ -34,7 +34,7 @@ export default function Deposits({ tasks }: DepositsProps) {
                 {`até ${tasks.length > 0 ? new Date(getMaxDate).toLocaleDateString('pt-BR') : 'now'}`}
             </Typography>
             <div>
-                <Link href="/history">View balance</Link>
+                <Link href="/transactions">View balance</Link>
             </div>
         </React.Fragment>
     );

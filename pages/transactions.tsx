@@ -60,8 +60,7 @@ const Transactions = () => {
                         sx={{
                             p: 2,
                             display: 'flex',
-                            flexDirection: 'column',
-                            height: 240
+                            flexDirection: 'column'
                         }}
                     >
                         <TransactionItems transactions={transactionsData} />
