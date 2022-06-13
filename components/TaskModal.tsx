@@ -15,6 +15,7 @@ import { server } from '../pages/api/service';
 import AppAlert from './Alert';
 import { AlertProps, IAlert } from '../interfaces/alert.interface';
 import { enableAlert } from '../helpers/alert.helper';
+import { ModeCommentRounded } from '@material-ui/icons';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -79,28 +80,35 @@ export default function TaskModal({ tasks , id, setTaskModal, updateTasks}: ITas
         event.preventDefault();
         setLoading(true);
         const token = localStorage.getItem('token');
-
-        server
-            .post(
-                `/user/${id}/task`,
-                makeCreateTaskData(),
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
+        const inputData = makeCreateTaskData()
+        if(moment(inputData.endTime)<moment(inputData.startTime)){
+            enableAlert(setAlert, {message:"Data final menor que data inicial", type:"error"})
+            setLoading(false)
+        }
+        else {
+            server
+                .post(
+                    `/user/${id}/task`,
+                    inputData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
                     }
-                }
-            )
-            .then(() => {
-                enableAlert(setAlert,{message:"Tarefa criada com sucesso!", type:"success"} );
-                setTaskModal(false);
-                setLoading(false)
-                updateTasks()
-            })
-            .catch((err) => {
-                console.log(err)
-                setLoading(false)
-                enableAlert(setAlert,{message:"Erro ao criar tarefa!", type:"error"} );
-            });
+                )
+                .then(() => {
+                    enableAlert(setAlert,{message:"Tarefa criada com sucesso!", type:"success"} );
+                    setTaskModal(false);
+                    setLoading(false)
+                    updateTasks()
+                })
+                .catch((err) => {
+                    console.log(err)
+                    setLoading(false)
+                    enableAlert(setAlert,{message:"Erro ao criar tarefa!", type:"error"} );
+                });
+        }
+
         console.log(getFullTimeFromMoment(date, startTime));
     };
 

@@ -67,7 +67,7 @@ export default function Tasks({ tasks, id, updateTasks }: ITasksProps) {
             </Modal>
             <Grid container spacing={3}>
                 <Grid item xs={10} md={10} lg={10}>
-                    <Title>Recent Orders </Title>
+                    <Title>Tarefas Recentes</Title>
                 </Grid>
                 <Grid item xs={2} md={2} lg={2}>
                     <Button
