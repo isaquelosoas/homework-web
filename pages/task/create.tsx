@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { isAuthorized, server } from '../api/service';
-import { ITokenInfo } from '../../interfaces/tokenInfo.interface';
 import Dashboard from '../../components/Dashboard';
 import Grid from '@mui/material/Grid';
 import {
@@ -62,6 +61,10 @@ const Task: NextPage = () => {
         const name = data.get('taskName');
         const categoryId = data.get('category');
         const description = data.get('taskDescription');
+        const multiplierText = data.get("multiplier") || "1"
+        const multiplier:number = parseFloat(multiplierText.toString())
+
+        console.log(multiplierText, multiplier)
 
         const token = window.localStorage.getItem('token');
         server
@@ -70,7 +73,8 @@ const Task: NextPage = () => {
                 {
                     name,
                     categoryId,
-                    description
+                    description,
+                    multiplier
                 },
                 {
                     headers: {
@@ -104,7 +108,7 @@ const Task: NextPage = () => {
                         {alert?.enabled && <AppAlert message={alert.message} type={alert.type} />}
                         <Grid container spacing={3}>
                             <Grid item xs={12} md={6}>
-                                <TextField required id="taskName" name="taskName" label="Nome da tarefa" fullWidth autoComplete="cc-name" />
+                                <TextField required id="taskName" name="taskName" label="Nome da tarefa"  fullWidth autoComplete="cc-name" />
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <FormControl fullWidth>
@@ -125,21 +129,27 @@ const Task: NextPage = () => {
                                     </Select>
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={12} md={12}>
-                                <TextField
-                                    required
-                                    id="taskDescription"
-                                    label="Descrição da tarefa"
-                                    name="taskDescription"
-                                    fullWidth
-                                    autoComplete="cc-number"
-                                />
-                            </Grid>
+                                <Grid item xs={12} md={6}>
+
+                                    <TextField
+                                        required
+                                        id="taskDescription"
+                                        label="Descrição da tarefa"
+                                        name="taskDescription"
+                                        fullWidth
+                                        autoComplete="cc-number"
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <TextField required id="multiplier" type="number" name="multiplier" defaultValue={1} label="Esforço" fullWidth autoComplete="cc-name" />
+                                </Grid>
+                            
                             <Grid item xs={3} md={12}>
                                 <Button type="submit" variant="contained" disabled={loading}>
                                     {loading ? <CircularProgress /> : 'Criar'}
                                 </Button>
                             </Grid>
+                            
                         </Grid>
                     </Box>
                 </Dashboard>

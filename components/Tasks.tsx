@@ -32,12 +32,20 @@ const getStatus = (pending: boolean, approved: boolean) => {
 interface ITasksProps {
     tasks: IUserTask[];
     id: string;
-    updateTasks: () => void;
+    updateTasks: (limit?: number) => void;
 }
 
 export default function Tasks({ tasks, id, updateTasks }: ITasksProps) {
     const [taskModal, setTaskModal] = useState<boolean>(false);
     const [taskList, setTaskList] = useState<ITask[]>([]);
+    const [pagination, setPagination] = useState<number>(1);
+
+    const getMoreTasks = () => {
+        const newPagination = pagination + 1;
+        const taskQuantity = newPagination * 30;
+        setPagination(newPagination);
+        updateTasks(taskQuantity);
+    };
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -108,7 +116,15 @@ export default function Tasks({ tasks, id, updateTasks }: ITasksProps) {
                     ))}
                 </TableBody>
             </Table>
-            <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
+            <Link
+                color="primary"
+                href="#"
+                onClick={(e) => {
+                    e.preventDefault();
+                    getMoreTasks();
+                }}
+                sx={{ mt: 3 }}
+            >
                 See more orders
             </Link>
         </Fragment>

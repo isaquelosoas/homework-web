@@ -15,7 +15,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { server } from './api/service';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { CircularProgress } from '@mui/material';
 
 function Copyright(props: any) {
   return (
@@ -35,10 +36,11 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 const Login: NextPage = () => {
- 
+ const [loading, setLoading] = useState<boolean>(false)
   
   const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true)
     const data = new FormData(event.currentTarget);
     try{
       const response = await server.post("/auth/signin", {email:data.get("email"), password:data.get("password")} )
@@ -50,6 +52,7 @@ const Login: NextPage = () => {
     }catch(error){
       console.log(error)
     }
+    setLoading(false)
     
   };
   return (
@@ -106,7 +109,7 @@ const Login: NextPage = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              {loading?<CircularProgress />:"Sign In!"}
             </Button>
             <Grid container>
               <Grid item xs>

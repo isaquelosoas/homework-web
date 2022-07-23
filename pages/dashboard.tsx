@@ -37,11 +37,11 @@ const Task: NextPage = () => {
         checkAuthorization();
     }, []);
 
-    const updateTasks = () => {
+    const updateTasks = (limit: number = 30) => {
         if (userId) {
             const token = window.localStorage.getItem('token');
             server
-                .get(`/user/${userId}/task`, {
+                .get(`/user/${userId}/task?limit=${limit}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
